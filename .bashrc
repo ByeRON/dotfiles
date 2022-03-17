@@ -148,13 +148,17 @@ export PATH="$HOME/.local/bin:$PATH"
 # golang
 export PATH="/usr/local/go/bin:$PATH"
 export GOPATH="$HOME/go"
+export PATH="$GOPATH:$PATH"
+
+# ghq/powerline-go
+export PATH="$GOPATH/bin:$PATH"
 
 # powerline-go
 function _update_ps1() {
-    PS1="$($GOPATH/bin/powerline-go -error $? -newline -hostname-only-if-ssh -modules venv,user,host,ssh,cwd,perms,git,hg,jobs,exit)"
+    PS1="$(powerline-go -error $? -newline -hostname-only-if-ssh -modules venv,user,host,ssh,cwd,perms,git,hg,jobs,exit)"
 }
 
-if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
+if [ "$TERM" != "linux" ] && [ -f "powerline-go" ]; then
     PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 fi
 
@@ -261,5 +265,3 @@ v() {
           done | fzf-tmux -d -m -q "$*" -1) && vim ${files//\~/$HOME}
 }
 
-# ghq
-#export PATH="$HOME/go/bin:$PATH"
