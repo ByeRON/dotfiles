@@ -149,8 +149,9 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="/usr/local/go/bin:$PATH"
 
 # powerline-go
+export PATH="/usr/local/bin:$PATH"
 function _update_ps1() {
-    PS1="$(/usr/bin/powerline-go -error $? -newline -hostname-only-if-ssh -modules venv,user,host,ssh,cwd,perms,git,hg,jobs,exit)"
+    PS1="$(powerline-go -error $? -newline -hostname-only-if-ssh -modules venv,user,host,ssh,cwd,perms,git,hg,jobs,exit)"
 }
 
 if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
