@@ -26,5 +26,31 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-#. "$HOME/.cargo/env"
-#export PATH="$HOME/.poetry/bin:$PATH"
+# pyenv
+export PYENV_SHELL=python3
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH="$PYENV_ROOT/shims:$PATH"
+
+# poetry
+export PATH="$HOME/.poetry/bin:$PATH"
+
+# batcat
+export PATH="$HOME/.local/bin:$PATH"
+
+# golang
+export PATH="$HOME/.local/bin:$PATH"
+export GOPATH="$HOME/go"
+export PATH="$GOPATH:$PATH"
+
+# ghq
+export PATH="$GOPATH/bin:$PATH"
+
+# rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# fzf
+export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
+
