@@ -147,11 +147,11 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # golang
 export PATH="/usr/local/go/bin:$PATH"
+export GOPATH="$HOME/go"
 
 # powerline-go
-export PATH="/usr/local/bin:$PATH"
 function _update_ps1() {
-    PS1="$(powerline-go -error $? -newline -hostname-only-if-ssh -modules venv,user,host,ssh,cwd,perms,git,hg,jobs,exit)"
+    PS1="$($GOPATH/bin/powerline-go -error $? -newline -hostname-only-if-ssh -modules venv,user,host,ssh,cwd,perms,git,hg,jobs,exit)"
 }
 
 if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
@@ -262,4 +262,4 @@ v() {
 }
 
 # ghq
-export PATH="$HOME/go/bin:$PATH"
+#export PATH="$HOME/go/bin:$PATH"
