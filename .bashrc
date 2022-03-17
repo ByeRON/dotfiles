@@ -116,21 +116,39 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# pyenv ->
+# pyenv
+export PYENV_SHELL=python3
+command pyenv rehash 2>/dev/null
+pyenv() {
+  local command
+  command="${1:-}"
+  if [ "$#" -gt 0 ]; then
+    shift
+  fi
+
+  case "$command" in
+  rehash|shell)
+    eval "$(pyenv "sh-$command" "$@")"
+    ;;
+  *)
+    command pyenv "$command" "$@"
+    ;;
+  esac
+}
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-# pyenv <-
+export PATH="$HOME/.pyenv/shims:$PATH"
 
 # poetry
 export PATH="$HOME/.poetry/bin:$PATH"
 
-# batcat <<
-export PATH="$PATH:~/.local/bin"
-# >>
+# batcat
+export PATH="$HOME/.local/bin:$PATH"
 
-# powerline-go ->
-# https://github.com/justjanne/powerline-go#installation
+# golang
+export PATH="/usr/local/go/bin:$PATH"
+
+# powerline-go
 function _update_ps1() {
     PS1="$(/usr/bin/powerline-go -error $? -newline -hostname-only-if-ssh -modules venv,user,host,ssh,cwd,perms,git,hg,jobs,exit)"
 }
@@ -138,16 +156,10 @@ function _update_ps1() {
 if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
     PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 fi
-# powerline-go <-
 
-# fzf <-
+# fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-# ->
 
-. "$HOME/.cargo/env"
-export PATH=$PATH:/home/nadir/.cargo/bin
-
-# fzf <<
 # fe [FUZZY PATTERN] - Open the selected file with the default editor
 #   - Bypass fuzzy finder if there's only one match (--select-1)
 #   - Exit if there's no match (--exit-0)
@@ -223,14 +235,16 @@ function drmi() {
   docker images | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $3 }' | xargs -r docker rmi
 }
 
-#export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-#export FZF_CTRL_T_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
-#export FZF_CTRL_T_OPTS='--preview "bat  --color=always --style=header,grid --line-range :100 {}"'
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 
-. ~/.rupa/z/z.sh
+# rust
+. "$HOME/.cargo/env"
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# z
+. "$HOME/z/z.sh"
 unalias z 2> /dev/null
 z() {
   [ $# -gt 0 ] && _z "$*" && return
@@ -246,6 +260,5 @@ v() {
           done | fzf-tmux -d -m -q "$*" -1) && vim ${files//\~/$HOME}
 }
 
-export TERM=xterm-256color
-
-export PATH="$PATH:/usr/local/bin"
+# ghq
+export PATH="$HOME/go/bin:$PATH"
