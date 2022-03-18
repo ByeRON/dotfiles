@@ -1,0 +1,12 @@
+---
+
+- name: Prerequirements
+  become: yes
+  apt:
+    name:
+      - curl
+
+- name: Install
+  shell: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | $HOME/.pyenv/shims/python -
+  args:
+    executable: /bin/bash

@@ -1,0 +1,11 @@
+---
+
+- name: Prerequirements
+  become: yes
+  apt:
+    name: build-essential
+
+- name: Install ghq
+  shell: /usr/local/go/bin/go install github.com/x-motemen/ghq@latest
+  args:
+    executable: /bin/bash

@@ -1,0 +1,22 @@
+---
+# Refered from: https://github.com/justjanne/powerline-go#installation
+
+- name:  Get powerline-go
+  shell: /usr/local/go/bin/go install github.com/justjanne/powerline-go@latest
+
+- name: Get fonts
+  shell: wget https://github.com/yuru7/HackGen/releases/download/v2.6.0/HackGenNerd_v2.6.0.zip && unzip HackGenNerd_v2.6.0.zip
+  args:
+    executable: /bin/bash
+
+- name: Move fonts
+  become: yes
+  shell: mv HackGenNerd_v2.6.0/* /usr/local/share/fonts/
+  args:
+    executable: /bin/bash
+
+- name: Remove temporary files
+  become: yes
+  shell: rm -rf HackGenNerd_v2.6.0  && rm -rf HackGenNerd_v2.6.0.zip
+  args:
+    executable: /bin/bash

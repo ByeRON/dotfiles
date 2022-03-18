@@ -1,0 +1,18 @@
+---
+# https://github.com/rupa/z
+
+- name: Clone z
+  git:
+    repo: https://github.com/rupa/z.git
+    dest: $HOME/z/
+
+    #- name: Collaborate with fzf
+    #  blockinfile:
+    #    block: |
+    #      . "$HOME/z/z.sh"
+    #      unalias z 2> /dev/null
+    #      z() {
+    #        [ $# -gt 0 ] && _z "$*" && return
+    #        cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
+    #      }
+    #    path: $HOME/.bashrc

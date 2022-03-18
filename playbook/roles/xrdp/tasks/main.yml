@@ -1,0 +1,26 @@
+---
+
+- name: Install
+  become: yes
+  apt:
+    name:
+      - xrdp
+    update_cache: yes
+
+- name: Copy template
+  become: yes
+  template:
+    src: ./roles/xrdp/templates/enhanced-session-mode.sh.j2
+    dest: /root/enhanced-session-mode.sh
+
+- name: Run setup script
+  become: yes
+  shell: sudo bash /root/enhanced-session-mode.sh
+
+- name: Delete setup script
+  become: yes
+  shell: sudo rm /root/enhanced-session-mode.sh
+
+- name: Reboot
+  become: yes
+  reboot:

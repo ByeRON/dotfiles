@@ -1,0 +1,48 @@
+---
+# Reference: https://github.com/danhper/asdf-python
+
+# Refered from https://github.com/danhper/asdf-python/issues/119#issuecomment-1000958539
+# maybe same requirements of pyenv
+- name: Prerequirements
+  become: yes
+  apt:
+    name:
+      - make
+      - build-essential
+      - libssl-dev
+      - zlib1g-dev
+      - libbz2-dev
+      - libreadline-dev
+      - libsqlite3-dev
+      - wget
+      - curl
+      - llvm
+      - libncursesw5-dev
+      - xz-utils
+      - tk-dev
+      - libxml2-dev
+      - libxmlsec1-dev
+      - libffi-dev
+      - liblzma-dev
+    update_cache: yes
+
+- name: Add plugin for python
+  shell: . $HOME/.asdf/asdf.sh && asdf plugin-add python
+  args:
+    executable: /bin/bash
+  ignore_errors: yes
+
+- name: Install selected python
+  shell: . $HOME/.asdf/asdf.sh && asdf install python 3.10.0
+  args:
+    executable: /bin/bash
+
+- name: Set installed python to global
+  shell: . $HOME/.asdf/asdf.sh && asdf global python 3.10.0
+  args:
+    executable: /bin/bash
+
+- name: Reshim python
+  shell: . $HOME/.asdf/asdf.sh && asdf reshim python
+  args:
+    executable: /bin/bash

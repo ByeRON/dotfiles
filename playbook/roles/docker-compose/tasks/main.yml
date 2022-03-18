@@ -1,0 +1,24 @@
+---
+
+- name: Prerequirements
+  become: yes
+  apt:
+    name:
+      - curl
+    update_cache: yes
+
+- name: Get
+  become: yes
+  shell: sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+- name: Add permission
+  become: yes
+  shell: sudo chmod +x /usr/local/bin/docker-compose
+
+- name: Create symbolic link
+  become: yes
+  shell: sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+- name: Setup completion
+  become: yes
+  shell: sudo curl -L https://raw.githubusercontent.com/docker/compose/1.29.2/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose

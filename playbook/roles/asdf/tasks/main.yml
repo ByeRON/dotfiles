@@ -1,0 +1,29 @@
+---
+#Reference: http://asdf-vm.com/guide/getting-started.html#_1-install-dependencies
+
+- name: Install dependent packages of asdf
+  become: yes
+  apt:
+    name: 
+      - git
+      - curl
+    update_cache: yes
+
+- name: Download asdf
+  git:
+    repo: https://github.com/asdf-vm/asdf.git
+    dest: ~/.asdf
+    version: v0.9.0
+    clone: yes
+
+- name: Append environment variable
+  lineinfile:
+    path: $HOME/.bashrc
+    line: ". $HOME/.asdf/asdf.sh"
+    insertafter: EOF
+
+- name: Append environment var for completion
+  lineinfile:
+    path: $HOME/.bashrc
+    line: ". $HOME/.asdf/completions/asdf.bash"
+    insertafter: EOF

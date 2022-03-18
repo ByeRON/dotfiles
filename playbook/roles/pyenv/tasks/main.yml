@@ -1,0 +1,48 @@
+---
+# Setup pyenv
+
+- name: Install git
+  become: yes
+  apt:
+    name: 
+      - git
+    update_cache: yes
+
+- name: Clone Pyenv repository
+  git:
+    repo: https://github.com/pyenv/pyenv.git
+    dest: ~/.pyenv
+    clone: yes
+
+- name: Install prerequirement of Pyenv
+  become: yes
+  apt:
+    name:
+      - make
+      - build-essential
+      - libssl-dev
+      - zlib1g-dev
+      - libbz2-dev
+      - libreadline-dev
+      - libsqlite3-dev
+      - wget
+      - curl
+      - llvm
+      - libncursesw5
+      - xz-utils
+      - tk-dev
+      - libxml2-dev
+      - libxmlsec1-dev
+      - libffi-dev
+      - liblzma-dev
+    update_cache: yes
+
+- name: Install Python selected version
+  shell: yes | $HOME/.pyenv/bin/pyenv install 3.10.0
+  args:
+    executable: /bin/bash
+
+- name: Apply selected Python to Global
+  shell: yes | $HOME/.pyenv/bin/pyenv global 3.10.0
+  args:
+    executable: /bin/bash

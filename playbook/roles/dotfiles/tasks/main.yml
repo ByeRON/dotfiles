@@ -1,0 +1,22 @@
+---
+- name: Install git
+  become: yes
+  apt:
+    name:
+      - git
+    update_cache: yes
+
+- name: Clone dotfiles
+  git:
+    repo: https://github.com/ByeRON/dotfiles
+    dest: $HOME/.dotfiles
+    force: yes
+
+- name: Create symbolic link
+  shell: bash $HOME/.dotfiles/install.sh
+  args:
+    executable: /bin/bash
+
+    #- name: reboot
+    #  become: yes
+    #  reboot:

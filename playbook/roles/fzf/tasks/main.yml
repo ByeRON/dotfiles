@@ -1,0 +1,20 @@
+---
+# https://github.com/junegunn/fzf#installation
+
+- name: Prerequirements
+  become: yes
+  apt:
+    name: git
+    update_cache: yes
+
+- name: Clone
+  git:
+    depth: 1
+    repo: https://github.com/junegunn/fzf.git
+    dest: $HOME/.fzf
+    force: yes
+
+- name: Install
+  shell: yes | $HOME/.fzf/install
+  args:
+    executable: /bin/bash

@@ -1,0 +1,35 @@
+---
+# Reference: https://github.com/danhper/asdf-python
+
+- name: Add plugin for poetry
+  shell: . $HOME/.asdf/asdf.sh && asdf plugin-add poetry 
+  args:
+    executable: /bin/bash
+  ignore_errors: yes
+
+- name: Install selected poetry
+  shell: . $HOME/.asdf/asdf.sh && asdf install poetry 1.1.9
+  args:
+    executable: /bin/bash
+
+- name: Insert sourcing path
+  lineinfile:
+    line: source $HOME/.asdf/installs/poetry/1.1.9/env
+    path: $HOME/.bashrc
+    insertafter: EOF
+
+# Refered from: https://github.com/Mapachana/Python-3.10-with-poetry
+- name: Prerequirements for poetry
+  pip:
+    executable: /$HOME/.asdf/shims/pip3
+    name:
+      - cleo
+      - tomlkit
+      - poetry.core
+      - requests
+      - cachecontrol
+      - cachy
+      - html5lib
+      - pkginfo
+      - virtualenv
+      - lockfile

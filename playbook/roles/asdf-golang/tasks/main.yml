@@ -1,0 +1,17 @@
+---
+
+- name: Add plugin for golang
+  shell: . $HOME/.asdf/asdf.sh && asdf plugin-add golang
+  args:
+    executable: /bin/bash
+  ignore_errors: yes
+
+- name: Install latest golang
+  shell: . $HOME/.asdf/asdf.sh && asdf install golang latest
+  args:
+    executable: /bin/bash
+
+- name: Globalize golang
+  shell: . $HOME/.asdf/asdf.sh && asdf global golang latest
+  args:
+    executable: /bin/bash

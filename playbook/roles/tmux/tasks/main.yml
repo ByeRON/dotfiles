@@ -1,0 +1,7 @@
+---
+
+- name: Install tmux
+  become: yes
+  apt:
+    name: tmux
+    update_cache: yes

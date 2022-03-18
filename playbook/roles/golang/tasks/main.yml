@@ -1,0 +1,15 @@
+---
+# https://go.dev/doc/install
+
+- name: Download binary
+  get_url:
+    url: https://go.dev/dl/go1.17.8.linux-amd64.tar.gz
+    dest: .
+
+- name: Delete existed go binary
+  become: yes
+  shell: rm -rf /usr/local/go && tar -C /usr/local -xzf go1.17.8.linux-amd64.tar.gz
+
+- name: Delete tarball
+  become: yes
+  shell: rm -rf go1.17.8.linux-amd64.tar.gz
