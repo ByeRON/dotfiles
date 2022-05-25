@@ -1,0 +1,8 @@
+---
+
+- name: Install bat
+  become: yes
+  apt:
+    name: ubuntu-desktop-minimal
+    update_cache: yes
+

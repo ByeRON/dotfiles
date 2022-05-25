@@ -1,24 +1,24 @@
 ---
 - hosts: develop
   roles:
-          #- dotfiles
-      #    - pyenv
-      #    - asdf
-      #    - asdf-python
-      #    - asdf-poetry
-      #    - asdf-golang
-      #    - bat
-      #    - golang
-      #    - powerline-go
-      #    - fzf
-      #    - rust
-      #    - z
-      #    - ghq
-      #    - v
-      #    - vim
-      #    - tmux
-      #    - poetry
-      #    - docker
-      #    - docker-compose
+    - ubuntu-desktop
+    - pyenv
+      # - asdf
+      # - asdf-python
+      # - asdf-poetry
+      # - asdf-golang
+    - bat
+    - golang
+    - powerline-go
+    - fzf
+    - rust
+    - z
+    - ghq
+    - v
+    - vim
+    - tmux
+    - poetry
+    - docker
+    - docker-compose
     - xrdp
     - dotfiles
