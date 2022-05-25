@@ -21,6 +21,13 @@
   become: yes
   shell: sudo rm /root/enhanced-session-mode.sh
 
+- name: Copy startwm
+  become: yes
+  template:
+    src: ./roles/xrdp/templates/startwm.sh.j2
+    dest: /etc/xrdp/startwm.sh
+    force: yes
+
 - name: Reboot
   become: yes
   reboot:
